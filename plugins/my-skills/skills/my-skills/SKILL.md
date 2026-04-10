@@ -1,33 +1,27 @@
 ---
-name: my-skills
-description: List my custom skills (from ~/.claude/skills/)
+name: my-skills:my-skills
+description: List all personal skills from the yann-skills plugin marketplace
 ---
 
-# My Custom Skills
+# My Skills
 
-List all installed custom skills from the plugin system.
+List all personal skills already loaded in your context from the `yann-skills` plugins.
 
-> **Source of truth: `~/projects/admin/claude-skills/`**
+## Instructions
 
-## Steps
+Do NOT read any files. All skills are already in your system prompt.
 
-1. Read `~/projects/admin/claude-skills/.claude-plugin/marketplace.json`
-   - This single file lists all installed plugins with their names and metadata
+Output every skill whose name matches `<namespace>:<command>` where the namespace belongs to `yann-skills` plugins:
+`todo-manager`, `admin`, `session`, `ai-brain`, `dotfiles`, `linkedin`, `maestro`, `nexus`, `pm-copilot`, `mastermind`, `my-skills`
 
-2. For each plugin in marketplace.json:
-   - List its skills directory: `~/projects/admin/claude-skills/plugins/<plugin-name>/skills/`
-   - For each skill subdirectory found, read its `SKILL.md`
-   - Extract `name` and `description` from YAML frontmatter
-   - Command name comes from the `name` field (e.g. `todo-manager:daily` → `/todo-manager:daily`)
+## Output format
 
-## Output
-
-Group by plugin name with `───` underlines. Format:
+Group by namespace with `───` underlines:
 
 ```
-Namespace
+namespace
 ───
   /namespace:command       Description
 ```
 
-This is the single source of truth — do NOT read CLAUDE.md for the command list.
+Sort namespaces alphabetically. Align descriptions.
