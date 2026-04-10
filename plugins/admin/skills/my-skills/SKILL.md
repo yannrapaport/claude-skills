@@ -1,5 +1,5 @@
 ---
-name: my-skills:my-skills
+name: admin:my-skills
 description: List all personal skills from the yann-skills plugin marketplace
 ---
 
