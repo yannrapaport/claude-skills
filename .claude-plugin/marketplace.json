@@ -1,0 +1,21 @@
+{
+  "name": "yann-skills",
+  "owner": { "name": "Yann Rapaport" },
+  "metadata": {
+    "description": "Yann Rapaport's personal Claude Code skills",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    { "name": "todo-manager", "source": "./plugins/todo-manager" },
+    { "name": "admin",        "source": "./plugins/admin" },
+    { "name": "ai-brain",     "source": "./plugins/ai-brain" },
+    { "name": "dotfiles",     "source": "./plugins/dotfiles" },
+    { "name": "linkedin",     "source": "./plugins/linkedin" },
+    { "name": "maestro",      "source": "./plugins/maestro" },
+    { "name": "nexus",        "source": "./plugins/nexus" },
+    { "name": "pm-copilot",   "source": "./plugins/pm-copilot" },
+    { "name": "session",      "source": "./plugins/session" },
+    { "name": "mastermind",   "source": "./plugins/mastermind" },
+    { "name": "my-skills",    "source": "./plugins/my-skills" }
+  ]
+}
