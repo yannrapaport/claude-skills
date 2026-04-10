@@ -11,11 +11,20 @@ Re-injects all `op.*.env` files into `~/.secrets/env.*` via the 1Password CLI.
 
 ## Steps
 
-1. **Check `op` CLI:**
+1. **Check `op` CLI and authenticate:**
+
+First check if already signed in:
 ```bash
 op whoami
 ```
-If not authenticated, stop and tell the user to run `op signin`.
+
+If not authenticated, sign in with eval to capture the session token (triggers the Touch ID / fingerprint prompt):
+```bash
+eval $(op signin --account CZDAKDFM6RERHFPL7VHPFIMNXE)
+op whoami
+```
+
+If still not authenticated after signin, stop and report the error.
 
 2. **Find all secret files:**
 ```bash
