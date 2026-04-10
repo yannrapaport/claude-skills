@@ -1,4 +1,8 @@
 {
   "name": "todo-manager",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "description": "Daily, weekly, monthly rituals and task management",
+  "author": {
+    "name": "Yann Rapaport"
+  }
 }

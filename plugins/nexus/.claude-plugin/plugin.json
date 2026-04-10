@@ -1,4 +1,8 @@
 {
   "name": "nexus",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "description": "Nexus VPS service monitoring",
+  "author": {
+    "name": "Yann Rapaport"
+  }
 }
