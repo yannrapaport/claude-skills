@@ -1,5 +1,5 @@
 ---
-name: mastermind
+name: mastermind:run
 description: Multi-agent review — launch parallel expert agents (PM, Architect, Dev, etc.) to analyze a complex topic, plan, codebase, or document from multiple perspectives and produce a synthesis. Use when the user asks for a review, second opinion, or sanity check on something non-trivial; or proactively before committing to an important architectural/strategic decision.
 ---
 

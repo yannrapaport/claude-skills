@@ -1,6 +1,6 @@
 {
   "name": "mastermind",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Multi-agent review from parallel expert perspectives",
   "author": {
     "name": "Yann Rapaport"
