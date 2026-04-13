@@ -1,5 +1,5 @@
 ---
-name: todo-manager:daily
+name: ai-brain:daily
 description: Run your evening ritual
 allowed-tools:
   - Read
@@ -17,17 +17,17 @@ Run the daily ritual (Steps 0 through 7) from the todo-manager assistant instruc
 </objective>
 
 <context>
-Assistant instructions: `/Users/yannrapaport/ai-brain/system/assistants/todo-manager.md`
+Assistant instructions: `/Users/yannrapaport/ai-brain/assistants/todos.md`
 
 Data files:
-- Active todos: `/Users/yannrapaport/ai-brain/data/todos/active-todos.md`
-- Weekly schedule: `/Users/yannrapaport/ai-brain/data/todos/weekly-schedule.md`
-- Rituals: `/Users/yannrapaport/ai-brain/data/todos/rituals.md`
-- Sync index: `/Users/yannrapaport/ai-brain/data/todos/notion-sync-index.json`
+- Active todos: `/Users/yannrapaport/ai-brain/todos/active-todos.md`
+- Weekly schedule: `/Users/yannrapaport/ai-brain/todos/weekly-schedule.md`
+- Rituals: `/Users/yannrapaport/ai-brain/todos/rituals.md`
+- Sync index: `/Users/yannrapaport/ai-brain/todos/notion-sync-index.json`
 </context>
 
 <process>
-1. Read the assistant instructions from `/Users/yannrapaport/ai-brain/system/assistants/todo-manager.md`
+1. Read the assistant instructions from `/Users/yannrapaport/ai-brain/assistants/todos.md`
 2. Execute the **Daily Ritual** protocol (Steps 0 through 7) exactly as documented
 3. Step 0: Pre-flight health checks (Notion, Slack, sync index)
 4. Steps 1-4: Review, celebrate, learn, handle incomplete tasks (ALWAYS ask user)
@@ -35,4 +35,3 @@ Data files:
 6. Steps 5-6: Plan tomorrow, transition Today's Focus
 7. Step 7: Send to Slack (if Slack available)
 </process>
-</output>

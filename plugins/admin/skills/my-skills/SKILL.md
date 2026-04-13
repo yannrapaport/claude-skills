@@ -12,7 +12,7 @@ List all personal skills already loaded in your context from the `yann-skills` p
 Do NOT read any files. All skills are already in your system prompt.
 
 Output every skill whose name matches `<namespace>:<command>` where the namespace belongs to `yann-skills` plugins:
-`todo-manager`, `admin`, `session`, `ai-brain`, `dotfiles`, `linkedin`, `maestro`, `nexus`, `pm-copilot`, `mastermind`, `my-skills`
+`admin`, `ai-brain`, `dotfiles`, `linkedin`, `maestro`, `nexus`, `pm-copilot`, `mastermind`, `session`, `my-skills`
 
 ## Output format
 

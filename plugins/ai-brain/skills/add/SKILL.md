@@ -1,5 +1,5 @@
 ---
-name: todo-manager:add
+name: ai-brain:add
 description: Add a task to active todos (with cross-project routing)
 argument-hint: "[task description] [#project-tag] [!importance]"
 allowed-tools:
@@ -14,7 +14,7 @@ Add a new task with auto-detected activity label and importance. Route to the co
 </objective>
 
 <context>
-Assistant instructions: `/Users/yannrapaport/ai-brain/assistants/todo-manager.md`
+Assistant instructions: `/Users/yannrapaport/ai-brain/assistants/todos.md`
 Hub file: `/Users/yannrapaport/ai-brain/todos/active-todos.md`
 Routing config: `~/.claude/todo-routing.yaml`
 
@@ -27,12 +27,12 @@ Task to add: $ARGUMENTS
 
 If $ARGUMENTS is empty or blank, respond with:
 ```
-Usage: /todo-manager:add [task description] [#project-tag] [!importance]
+Usage: /ai-brain:add [task description] [#project-tag] [!importance]
 
 Examples:
-  /todo-manager:add Review sprint PRD #rakam !must
-  /todo-manager:add Fix deploy pipeline
-  /todo-manager:add LinkedIn post !may
+  /ai-brain:add Review sprint PRD #rakam !must
+  /ai-brain:add Fix deploy pipeline
+  /ai-brain:add LinkedIn post !may
 ```
 Then stop.
 
@@ -45,13 +45,13 @@ Try to Read `~/.claude/todo-routing.yaml` (expand `~` to `/Users/yannrapaport`).
 
 ## Step 2 — Parse input
 
-Read the Activity Labels and Task Format sections from `/Users/yannrapaport/ai-brain/assistants/todo-manager.md`.
+Read the Activity Labels and Task Format sections from `/Users/yannrapaport/ai-brain/assistants/todos.md`.
 
 Parse $ARGUMENTS to extract:
 - **Task description**: full text with any `#tag` and `!importance` removed, trimmed
 - **Explicit #tag**: if input contains `#something`, extract it (case-insensitive)
 - **Importance**: `!must`, `!should`, or `!may` (default `!should`)
-- **Activity label**: auto-detect from keywords in todo-manager.md (e.g., "rakam sprint" -> Rakam). If ambiguous, ask.
+- **Activity label**: auto-detect from keywords in todos.md (e.g., "rakam sprint" -> Rakam). If ambiguous, ask.
 
 ## Step 3 — Route to target file
 
@@ -160,4 +160,3 @@ Hub entry added (active-todos.md):
 - If routing config is missing, behave exactly like the original add command: write to active-todos.md with AI Brain format.
 - Write scope: only write to paths listed in `hub.path` or `projects[].path` from the loaded config. Do not write elsewhere.
 </constraints>
-</output>

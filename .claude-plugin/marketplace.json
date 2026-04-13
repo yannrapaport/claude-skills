@@ -6,7 +6,6 @@
     "pluginRoot": "./plugins"
   },
   "plugins": [
-    { "name": "todo-manager", "source": "./plugins/todo-manager" },
     { "name": "admin",        "source": "./plugins/admin" },
     { "name": "ai-brain",     "source": "./plugins/ai-brain" },
     { "name": "dotfiles",     "source": "./plugins/dotfiles" },
