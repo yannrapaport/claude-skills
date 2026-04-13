@@ -1,8 +1,8 @@
 {
-  "name": "yann-skills",
+  "name": "tpg-skills",
   "owner": { "name": "Yann Rapaport" },
   "metadata": {
-    "description": "Yann Rapaport's personal Claude Code skills",
+    "description": "The Product Guy — personal Claude Code skills",
     "pluginRoot": "./plugins"
   },
   "plugins": [
