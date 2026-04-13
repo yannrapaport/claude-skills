@@ -1,7 +1,7 @@
 {
   "name": "ai-brain",
-  "version": "1.0.0",
-  "description": "AI Brain vault health and workspace status",
+  "version": "1.1.0",
+  "description": "AI Brain — vault tools, todo rituals, task management",
   "author": {
     "name": "Yann Rapaport"
   }
