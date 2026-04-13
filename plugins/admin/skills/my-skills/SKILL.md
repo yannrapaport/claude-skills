@@ -1,17 +1,17 @@
 ---
 name: admin:my-skills
-description: List all personal skills from the yann-skills plugin marketplace
+description: List all personal skills from the tpg-skills plugin marketplace
 ---
 
 # My Skills
 
-List all personal skills already loaded in your context from the `yann-skills` plugins.
+List all personal skills already loaded in your context from the `tpg-skills` plugins.
 
 ## Instructions
 
 Do NOT read any files. All skills are already in your system prompt.
 
-Output every skill whose name matches `<namespace>:<command>` where the namespace belongs to `yann-skills` plugins:
+Output every skill whose name matches `<namespace>:<command>` where the namespace belongs to `tpg-skills` plugins:
 `admin`, `ai-brain`, `dotfiles`, `linkedin`, `maestro`, `nexus`, `pm-copilot`, `mastermind`, `session`, `my-skills`
 
 ## Output format
