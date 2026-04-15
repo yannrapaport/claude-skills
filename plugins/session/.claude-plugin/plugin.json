@@ -1,7 +1,7 @@
 {
   "name": "session",
-  "version": "1.0.0",
-  "description": "Save and resume conversation context",
+  "version": "2.0.0",
+  "description": "Git-like session checkpoints — stash, pop, commit, checkout, log, archive",
   "author": {
     "name": "Yann Rapaport"
   }
