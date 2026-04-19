@@ -14,9 +14,9 @@ Run a full health check across the AI Brain system. Produce a structured PASS/WA
 </objective>
 
 <context>
-All vault paths are relative to `/Users/yannrapaport/ai-brain/` (symlink to the Obsidian vault).
+All vault paths are relative to `$HOME/ai-brain/` (symlink to the Obsidian vault).
 
-Commands directory: `/Users/yannrapaport/.claude/commands/`
+Commands directory: `$HOME/.claude/commands/`
 </context>
 
 <process>
@@ -80,7 +80,7 @@ For each match: record file name, line number, matched text, and rule ID.
 1. **Assistant files exist:** `system/assistants/todo-manager.md`. FAIL if missing.
 2. **Data files exist:** `data/todos/active-todos.md`, `data/todos/weekly-schedule.md`, `data/todos/rituals.md`, `data/todos/notion-sync-index.json`. FAIL if any missing.
 3. **Sync index freshness:** Read `last_sync` from `data/todos/notion-sync-index.json`. >24h → WARN.
-4. **Command files exist:** Verify `/Users/yannrapaport/.claude/commands/todo-manager/` contains `daily.md`, `weekly.md`, `monthly.md`, `show.md`, `add.md`, `sync.md`. Verify `/Users/yannrapaport/.claude/commands/ai-brain/health-check.md` exists. WARN if any missing.
+4. **Command files exist:** Verify `$HOME/.claude/commands/todo-manager/` contains `daily.md`, `weekly.md`, `monthly.md`, `show.md`, `add.md`, `sync.md`. Verify `$HOME/.claude/commands/ai-brain/health-check.md` exists. WARN if any missing.
 5. **MCP connectivity:** Attempt `mcp__claude_ai_Notion__notion-fetch` with `id: "5d941771-1135-4b0f-a0f9-e8580f46f786"`. WARN if unreachable.
 
 ---

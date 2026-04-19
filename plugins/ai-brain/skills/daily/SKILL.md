@@ -17,17 +17,17 @@ Run the daily ritual (Steps 0 through 7) from the todo-manager assistant instruc
 </objective>
 
 <context>
-Assistant instructions: `/Users/yannrapaport/ai-brain/assistants/todos.md`
+Assistant instructions: `$HOME/ai-brain/assistants/todos.md`
 
 Data files:
-- Active todos: `/Users/yannrapaport/ai-brain/todos/active-todos.md`
-- Weekly schedule: `/Users/yannrapaport/ai-brain/todos/weekly-schedule.md`
-- Rituals: `/Users/yannrapaport/ai-brain/todos/rituals.md`
-- Sync index: `/Users/yannrapaport/ai-brain/todos/notion-sync-index.json`
+- Active todos: `$HOME/ai-brain/todos/active-todos.md`
+- Weekly schedule: `$HOME/ai-brain/todos/weekly-schedule.md`
+- Rituals: `$HOME/ai-brain/todos/rituals.md`
+- Sync index: `$HOME/ai-brain/todos/notion-sync-index.json`
 </context>
 
 <process>
-1. Read the assistant instructions from `/Users/yannrapaport/ai-brain/assistants/todos.md`
+1. Read the assistant instructions from `$HOME/ai-brain/assistants/todos.md`
 2. Execute the **Daily Ritual** protocol (Steps 0 through 7) exactly as documented
 3. Step 0: Pre-flight health checks (Notion, Slack, sync index)
 4. Steps 1-4: Review, celebrate, learn, handle incomplete tasks (ALWAYS ask user)

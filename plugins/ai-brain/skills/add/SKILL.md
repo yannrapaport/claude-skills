@@ -14,8 +14,8 @@ Add a new task with auto-detected activity label and importance. Route to the co
 </objective>
 
 <context>
-Assistant instructions: `/Users/yannrapaport/ai-brain/assistants/todos.md`
-Hub file: `/Users/yannrapaport/ai-brain/todos/active-todos.md`
+Assistant instructions: `$HOME/ai-brain/assistants/todos.md`
+Hub file: `$HOME/ai-brain/todos/active-todos.md`
 Routing config: `~/.claude/todo-routing.yaml`
 
 Task to add: $ARGUMENTS
@@ -38,14 +38,14 @@ Then stop.
 
 ## Step 1 — Load routing config
 
-Try to Read `~/.claude/todo-routing.yaml` (expand `~` to `/Users/yannrapaport`).
+Try to Read `~/.claude/todo-routing.yaml` (expand `~` to `$HOME`).
 
 - If the file exists, parse it. Extract `hub`, `defaults`, and `projects` list.
 - If the file does NOT exist, skip routing entirely — treat everything as hub (active-todos.md). Continue to Step 2.
 
 ## Step 2 — Parse input
 
-Read the Activity Labels and Task Format sections from `/Users/yannrapaport/ai-brain/assistants/todos.md`.
+Read the Activity Labels and Task Format sections from `$HOME/ai-brain/assistants/todos.md`.
 
 Parse $ARGUMENTS to extract:
 - **Task description**: full text with any `#tag` and `!importance` removed, trimmed
@@ -156,7 +156,7 @@ Hub entry added (active-todos.md):
 - Use Write ONLY for creating new files. Use Edit for all modifications to existing files.
 - ALWAYS Read a file before using Edit on it.
 - When pilotage applies: write to the project file FIRST, then the hub.
-- Expand `~` to `/Users/yannrapaport` before any file operation.
+- Expand `~` to `$HOME` before any file operation.
 - If routing config is missing, behave exactly like the original add command: write to active-todos.md with AI Brain format.
 - Write scope: only write to paths listed in `hub.path` or `projects[].path` from the loaded config. Do not write elsewhere.
 </constraints>
