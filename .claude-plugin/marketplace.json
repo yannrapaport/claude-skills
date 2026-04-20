@@ -13,7 +13,6 @@
     { "name": "maestro",      "source": "./plugins/maestro" },
     { "name": "nexus",        "source": "./plugins/nexus" },
     { "name": "pm-copilot",   "source": "./plugins/pm-copilot" },
-    { "name": "session",      "source": "./plugins/session" },
     { "name": "mastermind",   "source": "./plugins/mastermind" }
   ]
 }
