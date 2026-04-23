@@ -14,9 +14,9 @@ Run a full health check across the AI Brain system. Produce a structured PASS/WA
 </objective>
 
 <context>
-All vault paths are relative to `$HOME/ai-brain/` (symlink to the Obsidian vault).
+All vault paths are relative to `$HOME/ai-brain/` (symlink to the Obsidian vault). The vault is flat: top-level dirs are `assistants/`, `todos/`, `context/`, `knowledge/`, `projects/`, `scratchpad/`, `tools/`, `infra/`, `templates/`, `archive/`, `checkpoints/`, `claudius/`.
 
-Commands directory: `$HOME/.claude/commands/`
+Commands directory: `$HOME/.claude/commands/`. Most former slash commands were migrated to plugin skills in `$HOME/.claude/plugins/cache/tpg-skills/`.
 </context>
 
 <process>
@@ -27,27 +27,31 @@ Run ALL four domains in order. Do not halt on individual check failures — comp
 ## Domain 1: Assistant Instruction Lint
 
 **Files to scan:**
-- `system/assistants/todo-manager.md`
+- `assistants/todos.md`
 
 **Changelog exemption (CRITICAL):** Before applying any lint rules, identify the `## Changelog` section in each file. Skip lint rules LINT-01 through LINT-04 for any line within a changelog section.
+
+**Archive exemption:** Skip all lint rules for files under `archive/` — those are historical.
 
 **Lint rules (apply to prose body only, not changelog):**
 
 | Rule | Pattern | Severity | Notes |
 |------|---------|----------|-------|
-| LINT-01 | `meta-assistant/` path prefix anywhere in text | WARN | Correct prefix is `system/`, `data/`, or `scripts/` |
+| LINT-01 | `meta-assistant/`, `system/`, or `data/` path prefix anywhere in text | WARN | Vault was flattened — top-level dirs only (`assistants/`, `todos/`, `context/`, …) |
 | LINT-02 | `notion-sync.md` referenced as a live file | WARN | File deleted; only changelog references expected (exempted) |
 | LINT-03 | `~/iCloud Drive/` paths | WARN | Storage migrated to ProtonDrive |
 | LINT-04 | Tool names not matching `mcp__claude_ai_*` pattern (e.g. `notion_retrieve_database`, `slack_get_user`) | WARN | Should use real Claude.ai MCP tool names |
 | LINT-05 | `[[wiki-links]]` pointing to files that do not exist in the vault | WARN | Check existence |
-| LINT-06 | References to any file in `system/` that no longer exists on disk | FAIL | Hard broken reference |
+| LINT-06 | References to any vault file path that no longer exists on disk (e.g. `assistants/todo-manager.md` when actual is `assistants/todos.md`) | FAIL | Hard broken reference |
 
 For each match: record file name, line number, matched text, and rule ID.
 
 **Extended scope (informational only — no tasks created):** Briefly scan these files for LINT-01 patterns:
-- `system/context/goals.md`
-- `system/activities/ai-brain/plan.md`
-- `data/todos/rituals.md` — EXCEPTION: if LINT-01 found here, DO create tasks (operational data file).
+- `context/goals.md`
+- `context/core.md`
+- `context/principles.md`
+
+**Operational exception:** scan `todos/rituals.md` with full LINT-01 + LINT-06 enforcement. If any stale-prefix or broken-reference match → DO create tasks (operational file, stale paths mean rituals silently fail).
 
 ---
 
@@ -72,24 +76,31 @@ For each match: record file name, line number, matched text, and rule ID.
 - ENABLED + has dependency → PASS
 - ENABLED + no dependency → WARN (potential bloat)
 - DISABLED + has dependency → FAIL
+- Unknown plugin (not in map) → WARN (ask user whether it's load-bearing)
 
 ---
 
 ## Domain 3: System Integrity
 
-1. **Assistant files exist:** `system/assistants/todo-manager.md`. FAIL if missing.
-2. **Data files exist:** `data/todos/active-todos.md`, `data/todos/weekly-schedule.md`, `data/todos/rituals.md`, `data/todos/notion-sync-index.json`. FAIL if any missing.
-3. **Sync index freshness:** Read `last_sync` from `data/todos/notion-sync-index.json`. >24h → WARN.
-4. **Command files exist:** Verify `$HOME/.claude/commands/todo-manager/` contains `daily.md`, `weekly.md`, `monthly.md`, `show.md`, `add.md`, `sync.md`. Verify `$HOME/.claude/commands/ai-brain/health-check.md` exists. WARN if any missing.
-5. **MCP connectivity:** Attempt `mcp__claude_ai_Notion__notion-fetch` with `id: "5d941771-1135-4b0f-a0f9-e8580f46f786"`. WARN if unreachable.
+1. **Assistant files exist:** `assistants/todos.md`. FAIL if missing.
+2. **Data files exist:** `todos/active-todos.md`, `todos/weekly-schedule.md`, `todos/rituals.md`. FAIL if any missing. `todos/notion-sync-index.json` → FAIL if missing, but see check #3.
+3. **Notion sync status:**
+   - Read `last_sync` from `todos/notion-sync-index.json`. If >24h → WARN ("stale sync").
+   - Attempt `mcp__claude_ai_Notion__notion-fetch` with the `notion_database_id` from the index. If 404/unreachable → FAIL ("sync target lost — decide resume-or-abandon").
+4. **Plugin skill availability:** verify the `ai-brain` plugin is discoverable — check `$HOME/.claude/plugins/cache/tpg-skills/ai-brain/*/skills/health-check/SKILL.md` exists. WARN if missing.
 
 ---
 
 ## Domain 4: Data File Cross-References
 
-**Check:** Read `data/todos/rituals.md`. Scan for `meta-assistant/` path prefix references (LINT-01). These are operational paths — stale paths mean rituals silently fail.
+**Check:** Read `todos/rituals.md`. Scan for:
+- LINT-01 stale prefixes (`meta-assistant/`, `system/`, `data/`)
+- LINT-06 broken vault references (e.g. a link to `assistants/todo-manager.md` that no longer exists)
 
-- If found → WARN, create tasks
+These are operational paths — stale paths mean rituals silently fail.
+
+- LINT-01 match → WARN, create task
+- LINT-06 match → FAIL, create task
 - Report findings with line numbers
 
 ---
@@ -140,7 +151,7 @@ For each match: record file name, line number, matched text, and rule ID.
 2. For each finding:
    - WARN → `- [ ] [health-check] {description} #ai-brain !should`
    - FAIL → `- [ ] [health-check] {description} #ai-brain !must`
-3. **Deduplication:** Search `data/todos/active-todos.md` for existing `[health-check]` tasks with matching key phrase. Skip if found.
-4. **Append location:** After the last `#ai-brain` line in `data/todos/active-todos.md`.
+3. **Deduplication:** Search `todos/active-todos.md` for existing `[health-check]` tasks with matching key phrase. Skip if found.
+4. **Append location:** After the last `#ai-brain` line in `todos/active-todos.md`.
 5. If zero findings: "None — all checks passed."
 </process>
