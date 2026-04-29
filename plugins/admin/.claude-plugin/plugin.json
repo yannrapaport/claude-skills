@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Project workspace setup \u2014 MCP, secrets, aliases",
   "author": {
     "name": "Yann Rapaport"
