@@ -3,14 +3,18 @@ name: ai-brain:restore
 description: Restore a session from a checkpoint — pulls the vault, lists checkpoints for the current project, loads the selected one
 argument-hint: "[optional checkpoint filename or path]"
 allowed-tools:
-  - Read
   - Bash
-  - Glob
 ---
 
 <objective>
 Resume a previously-saved work session by loading a checkpoint markdown into the current conversation context. Pulls the vault first so checkpoints created on another machine (e.g. Mac) are visible here (e.g. Nexus).
 </objective>
+
+<performance>
+This skill is mechanical. Do all filesystem work in a **single Bash call** — pull, detect project, list/print in one shot. No `Read` tool needed: `cat` returns the content directly.
+
+Tip for the user: `/fast` mode (Opus 4.6) or `/model claude-haiku-4-5` makes mechanical skills feel snappier.
+</performance>
 
 <context>
 Checkpoint storage: `$HOME/ai-brain/checkpoints/<project>/YYYY-MM-DD-HHmm-<slug>.md`
@@ -32,44 +36,52 @@ Argument: `$ARGUMENTS` (optional — either a full path, a bare filename, or emp
 
 <process>
 
-## Step 1 — Pull the vault
+## Single-shot mode — argument provided
 
-Sync any checkpoints created on another machine:
+If `$ARGUMENTS` is non-empty, run **one** Bash command that:
+1. Pulls the vault.
+2. Resolves the path:
+   - Starts with `/` or `~` → use directly.
+   - Bare filename → `~/ai-brain/checkpoints/<project>/<arg>.md` (add `.md` if missing).
+3. `cat`s the resolved file.
+
 ```bash
-cd ~/ai-brain && git pull --ff-only 2>&1
+cd ~/ai-brain && git pull --ff-only 2>&1 | tail -1 && echo "---" && cat <resolved_path>
 ```
 
-If the pull fails (conflict, divergence), report the error and stop. Don't try to resolve automatically — the user can rerun once resolved.
+Then format and present (see <presentation>).
 
-## Step 2 — Detect project
+## Interactive mode — no argument
 
-Run `pwd` and map to a project slug using the table in <context>. If no match, ask the user once which project's checkpoints to list.
+Run **one** Bash command that pulls + lists checkpoints with their one-line résumé:
 
-## Step 3 — Resolve checkpoint to load
+```bash
+cd ~/ai-brain && git pull --ff-only 2>&1 | tail -1 && echo "---"
+PROJECT=<detected>
+DIR="$HOME/ai-brain/checkpoints/$PROJECT"
+[ -d "$DIR" ] || { echo "Aucun checkpoint pour $PROJECT."; exit 0; }
+i=0
+for f in $(ls -t "$DIR"/*.md 2>/dev/null | head -10); do
+  i=$((i+1))
+  name=$(basename "$f" .md)
+  resume=$(awk '/^## Résumé/{flag=1; next} /^## /{flag=0} flag && NF{print; exit}' "$f")
+  printf "%d. %s\n   %s\n" "$i" "$name" "$resume"
+done
+```
 
-**Case A — `$ARGUMENTS` is a full path** (starts with `/` or `~`):
-Use it directly. Skip to step 4.
+Present the list to the user. Ask: `"Lequel ? (numéro, ou Entrée pour le plus récent)"`.
 
-**Case B — `$ARGUMENTS` is a bare filename** (e.g. `2026-04-28-1430-copilot-tests`):
-Resolve to `~/ai-brain/checkpoints/<project>/<arg>.md` (add `.md` if missing).
+Once the user answers, run **one more** Bash command:
+```bash
+cat ~/ai-brain/checkpoints/<project>/<chosen>.md
+```
 
-**Case C — `$ARGUMENTS` is empty:**
-1. List checkpoints in `~/ai-brain/checkpoints/<project>/` sorted by filename **descending** (most recent first).
-2. If none exist, report `Aucun checkpoint pour <project>.` and stop.
-3. Show up to 10 most recent as a numbered list:
-   ```
-   Checkpoints pour <project> :
-   1. 2026-04-28-1430-copilot-tests       (mac, today 14:30)
-   2. 2026-04-26-1015-data-collection-prd (mac, sat 10:15)
-   3. ...
-   ```
-   For each, read just the frontmatter + Résumé to display the one-line résumé inline.
-4. Ask: `"Lequel ? (numéro, ou Entrée pour le plus récent)"`. Wait for answer.
-5. Resolve to the chosen path.
+Then format and present.
 
-## Step 4 — Read and present
+</process>
 
-Read the checkpoint file. Display:
+<presentation>
+Display the checkpoint contents verbatim, in this format:
 
 ```
 ► Checkpoint loaded: <filename>
@@ -96,16 +108,15 @@ Then a one-line invitation:
 → Reprends sur : <first bullet of Next>
 ```
 
-## Step 5 — Optional context loading
-
-If the **Refs** section lists files (paths starting with `~/` or `/`), don't read them automatically — just list them. Let the user say `"lis les refs"` if they want them loaded into context.
-
-</process>
+If **Refs** lists files (paths starting with `~/` or `/`), don't read them automatically — just list them. The user opts in with `"lis les refs"`.
+</presentation>
 
 <constraints>
 - Always `git pull` first. The whole point is cross-machine sync.
-- Read-only on the checkpoint. Never modify or delete checkpoint files in this skill.
+- **Hard cap: 1 Bash call when an argument is given, 2 Bash calls in interactive mode.** Don't add Read tool calls — `cat` is enough.
+- Read-only on the checkpoint. Never modify or delete checkpoint files.
 - Display the checkpoint contents verbatim — don't paraphrase or compress.
 - Don't auto-load Refs. The user opts in.
+- If the pull fails (conflict, divergence), report the error and stop.
 - If multiple `<project>` slugs are plausible from `pwd`, ask once instead of guessing.
 </constraints>
