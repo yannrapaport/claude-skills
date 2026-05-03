@@ -1,10 +1,18 @@
 ---
 name: maestro:send
-description: Send WhatsApp message via agent (LLM-processed)
+description: "[DEPRECATED] Send WhatsApp via claudius-admin agent (gateway clawdbot n'existe plus depuis 2026-04-28)"
 allowed-tools:
   - Bash
   - AskUserQuestion
 ---
+<deprecated>
+⚠️ **CETTE SKILL EST CASSÉE depuis 2026-04-28.**
+
+L'endpoint `http://nexus:53665/v1/chat/completions` (gateway clawdbot) et l'agent `claudius-admin` n'existent plus. La stack WhatsApp tourne maintenant sous **NanoClaw v2** + persona **Herbert**.
+
+**Ne pas exécuter cette skill** — voir `~/ai-brain/tools/maestro-radar.md` pour l'état courant.
+</deprecated>
+
 <objective>
 Send a WhatsApp message through the Maestro chat completions API. The message is processed by the LLM agent, which decides how to deliver it.
 </objective>

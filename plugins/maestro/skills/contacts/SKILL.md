@@ -1,11 +1,19 @@
 ---
 name: maestro:contacts
-description: List/add/remove WhatsApp contacts
+description: "[DEPRECATED] Manage clawdbot.json contacts (config n'est plus lu depuis 2026-04-28)"
 allowed-tools:
   - Read
   - Edit
   - AskUserQuestion
 ---
+<deprecated>
+⚠️ **CETTE SKILL EST OBSOLÈTE depuis 2026-04-28.**
+
+Le fichier `~/projects/maestro/infra/clawdbot.json` n'est plus lu (le container clawdbot ne tourne plus). Les contacts WhatsApp et les groupes sont maintenant configurés dans NanoClaw : `~/projects/tpg/nanoclaw/groups/whatsapp_*/container.json`.
+
+À reconstruire pour cibler NanoClaw.
+</deprecated>
+
 <objective>
 Manage WhatsApp contacts in the Maestro clawdbot configuration.
 </objective>

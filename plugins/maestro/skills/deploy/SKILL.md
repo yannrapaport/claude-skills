@@ -1,9 +1,17 @@
 ---
 name: maestro:deploy
-description: Push config to Nexus and restart Maestro
+description: "[DEPRECATED] Push clawdbot.json + restart container (n'existe plus depuis 2026-04-28)"
 allowed-tools:
   - Bash
 ---
+<deprecated>
+⚠️ **CETTE SKILL EST OBSOLÈTE depuis 2026-04-28.**
+
+Le container `clawdbot` n'existe plus, `clawdbot.json` n'est plus lu, `/docker/claudius/` est legacy. NanoClaw se déploie autrement (push code vers `~/projects/tpg/nanoclaw/` + `systemctl --user restart nanoclaw.service`).
+
+À reconstruire pour cibler NanoClaw.
+</deprecated>
+
 <objective>
 Deploy the current Maestro configuration to Nexus and restart the container.
 </objective>

@@ -1,10 +1,22 @@
 ---
 name: maestro:send-raw
-description: Send raw WhatsApp message via SSH (no LLM processing)
+description: "[DEPRECATED] Send raw WhatsApp message via SSH (cibles container Docker claudius-clawdbot-1, n'existe plus depuis 2026-04-28)"
 allowed-tools:
   - Bash
   - AskUserQuestion
 ---
+<deprecated>
+⚠️ **CETTE SKILL EST CASSÉE depuis 2026-04-28.**
+
+Le container Docker `claudius-clawdbot-1` n'existe plus sur Nexus. La stack WhatsApp tourne maintenant sous **NanoClaw v2** (`systemctl --user status nanoclaw.service`, code à `~/projects/tpg/nanoclaw/`) avec le persona **Herbert**.
+
+Aucun mécanisme CLI proactif local n'a encore été reconstruit pour pousser un message à un groupe via NanoClaw. **Ne pas exécuter cette skill** — au lieu de ça :
+- Demander à Yann d'envoyer manuellement, ou
+- Ajouter une tâche taguée dans `~/ai-brain/todos/active-todos.md` que Radar remontera
+
+Doc : `~/ai-brain/tools/maestro-radar.md`
+</deprecated>
+
 <objective>
 Send a raw WhatsApp message directly via the clawdbot CLI on Nexus, bypassing LLM processing.
 </objective>

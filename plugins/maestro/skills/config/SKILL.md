@@ -1,11 +1,19 @@
 ---
 name: maestro:config
-description: View/edit Maestro configuration
+description: "[DEPRECATED] View/edit clawdbot.json (n'est plus lu depuis 2026-04-28)"
 allowed-tools:
   - Read
   - Edit
   - AskUserQuestion
 ---
+<deprecated>
+⚠️ **CETTE SKILL EST OBSOLÈTE depuis 2026-04-28.**
+
+Le fichier `~/projects/maestro/infra/clawdbot.json` décrit l'ancienne config OpenClaw qui n'est plus chargée. NanoClaw lit ses configs depuis `~/projects/tpg/nanoclaw/groups/whatsapp_*/container.json` et `~/projects/tpg/nanoclaw/data/v2.db`.
+
+À reconstruire pour cibler NanoClaw.
+</deprecated>
+
 <objective>
 View and interactively edit the Maestro clawdbot configuration.
 </objective>
