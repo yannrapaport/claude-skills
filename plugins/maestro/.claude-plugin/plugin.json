@@ -1,7 +1,7 @@
 {
   "name": "maestro",
-  "version": "1.2.0",
-  "description": "WhatsApp via Herbert (NanoClaw v2 admin transport). /maestro:send + /maestro:list-groups opérationnels depuis 2026-05-05 (mode C1).",
+  "version": "1.2.1",
+  "description": "WhatsApp via Herbert (NanoClaw v2 admin transport). /maestro:send + /maestro:list-groups + /maestro:status opérationnels depuis 2026-05-05.",
   "author": {
     "name": "Yann Rapaport"
   }

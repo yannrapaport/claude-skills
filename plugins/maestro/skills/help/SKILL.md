@@ -12,8 +12,8 @@ Stack actuelle : **NanoClaw v2** + persona **Herbert** (depuis 2026-04-28). Code
 |---------|------|
 | `/maestro:send <alias> <message>` | ✅ Opérationnel depuis 2026-05-05 (mode C1, via Herbert) |
 | `/maestro:list-groups` | ✅ Opérationnel depuis 2026-05-05 |
+| `/maestro:status` | ✅ Opérationnel depuis 2026-05-05 (NanoClaw service + socket + sessions) |
 | `/maestro:send-raw <alias> <message>` | ❌ Pas reconstruit — voir "Plan futur" dans `~/ai-brain/tools/maestro-radar.md` (C2) |
-| `/maestro:status` | ⚠️ DEPRECATED — pointait vers le container clawdbot. À redéfinir sous NanoClaw. |
 | `/maestro:deploy` | ⚠️ DEPRECATED — `/docker/claudius/` legacy, n'existe plus |
 | `/maestro:contacts` | ⚠️ DEPRECATED — `clawdbot.json` plus lu |
 | `/maestro:config` | ⚠️ DEPRECATED — `clawdbot.json` plus lu |
