@@ -1,7 +1,7 @@
 {
   "name": "maestro",
-  "version": "1.1.0",
-  "description": "WhatsApp via Maestro/Herbert on Nexus — toutes skills DEPRECATED depuis 2026-04-28 (migration NanoClaw v2)",
+  "version": "1.2.0",
+  "description": "WhatsApp via Herbert (NanoClaw v2 admin transport). /maestro:send + /maestro:list-groups opérationnels depuis 2026-05-05 (mode C1).",
   "author": {
     "name": "Yann Rapaport"
   }
