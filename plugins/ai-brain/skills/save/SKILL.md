@@ -38,7 +38,7 @@ Journal locations (per-project, append-only):
 If the project has no `journal/` folder, **skip the journal step silently** — do not auto-create it.
 
 TODOs:
-- Hub: `$HOME/ai-brain/todos/active-todos.md` (gitignored — synced separately, not via vault commit)
+- Hub: `$HOME/ai-brain/todos/active-todos.md` (git-tracked dans le vault depuis V0 continuous-todo, synced via commit/push)
 - Project: `<project-root>/TODO.md` if it exists
 
 Argument: `$ARGUMENTS` (optional slug — if absent, derive a 2-4 word kebab-case slug from the session summary).
