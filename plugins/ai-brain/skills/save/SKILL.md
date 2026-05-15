@@ -15,7 +15,13 @@ Capture the current work session so it can be resumed later — on this machine 
 </objective>
 
 <context>
-Checkpoint storage: `$HOME/ai-brain/checkpoints/<project>/YYYY-MM-DD-HHmm-<slug>.md`
+**Vault root resolution (do this FIRST, mentally):**
+- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (you are inside an `aib` worktree session — write into the worktree so wrap-up can merge cleanly).
+- Otherwise, the vault root is `$HOME/ai-brain`.
+
+Notation: `<vault>` below refers to whichever root applies.
+
+Checkpoint storage: `<vault>/checkpoints/<project>/YYYY-MM-DD-HHmm-<slug>.md`
 The `checkpoints/` folder is git-tracked in the Obsidian vault, so a commit + push at the end of this skill makes the checkpoint available on Nexus (and any other machine with the vault).
 
 Project slug detection (from `pwd`):
@@ -38,7 +44,7 @@ Journal locations (per-project, append-only):
 If the project has no `journal/` folder, **skip the journal step silently** — do not auto-create it.
 
 TODOs:
-- Hub: `$HOME/ai-brain/todos/active-todos.md` (git-tracked dans le vault depuis V0 continuous-todo, synced via commit/push)
+- Hub: `<vault>/todos/active-todos.md` (git-tracked dans le vault depuis V0 continuous-todo, synced via commit/push)
 - Project: `<project-root>/TODO.md` if it exists
 
 Argument: `$ARGUMENTS` (optional slug — if absent, derive a 2-4 word kebab-case slug from the session summary).
@@ -73,7 +79,7 @@ Otherwise generate a 2-4 word kebab-case slug from the **Résumé** content (e.g
 
 ## Step 4 — Write the checkpoint file
 
-Path: `$HOME/ai-brain/checkpoints/<project>/<filename-date>-<slug>.md`
+Path: `<vault>/checkpoints/<project>/<filename-date>-<slug>.md`
 
 Create the project subfolder if it doesn't exist (`mkdir -p`).
 
@@ -135,16 +141,18 @@ Be conservative. If in doubt, skip and mention it in the final summary instead.
 
 ## Step 7 — Commit + push the vault
 
-The vault repo lives at `~/ai-brain` (symlink to the Obsidian folder). Run:
+Run from `<vault>` (which may be `$HOME/ai-brain` or the `aib` session worktree):
 
 ```bash
-cd ~/ai-brain
+cd <vault>
 git add checkpoints/
 git commit -m "checkpoint: <project> — <slug>
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
 git push
 ```
+
+If `<vault>` is a worktree, the commit lands on the `session-*` branch and will be merged into `main` at the next `/ai-brain:wrap-up`. The push to origin may fail because the branch has no upstream — that's OK, the merge at wrap-up time will propagate it.
 
 Do NOT add other paths (`.obsidian/workspace.json`, etc.) — only the checkpoint file.
 

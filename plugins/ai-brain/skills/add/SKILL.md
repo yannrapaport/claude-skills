@@ -11,8 +11,14 @@ Append a task to the AI Brain hub (`active-todos.md`). No routing, no disambigua
 </objective>
 
 <context>
-Hub file: `$HOME/ai-brain/todos/active-todos.md`
-Format reference: `$HOME/ai-brain/assistants/todos.md`
+**Vault root resolution (do this FIRST, mentally):**
+- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (you are inside an `aib` worktree session).
+- Otherwise, the vault root is `$HOME/ai-brain`.
+
+Notation: `<vault>` below refers to whichever root applies.
+
+Hub file: `<vault>/todos/active-todos.md`
+Format reference: `<vault>/assistants/todos.md`
 
 Task to add: $ARGUMENTS
 </context>
@@ -50,7 +56,7 @@ Map `!importance` to a section under `## This Week`:
 
 ## Step 3 — Append
 
-1. Read `$HOME/ai-brain/todos/active-todos.md`.
+1. Read `<vault>/todos/active-todos.md` (resolved per <context>).
 2. Locate the chosen section.
 3. Find the last `- [ ]` line in that section (before the next `### ` or `## `).
 4. Use Edit to insert a new line right after it:

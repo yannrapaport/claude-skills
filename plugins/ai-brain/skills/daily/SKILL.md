@@ -17,17 +17,23 @@ Run the daily ritual (Steps 0 through 7) from the todo-manager assistant instruc
 </objective>
 
 <context>
-Assistant instructions: `$HOME/ai-brain/assistants/todos.md`
+**Vault root resolution (do this FIRST, mentally):**
+- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (`aib` worktree session).
+- Otherwise, the vault root is `$HOME/ai-brain`.
+
+`<vault>` below refers to whichever root applies.
+
+Assistant instructions: `<vault>/assistants/todos.md`
 
 Data files:
-- Active todos: `$HOME/ai-brain/todos/active-todos.md`
-- Weekly schedule: `$HOME/ai-brain/todos/weekly-schedule.md`
-- Rituals: `$HOME/ai-brain/todos/rituals.md`
-- Sync index: `$HOME/ai-brain/todos/notion-sync-index.json`
+- Active todos: `<vault>/todos/active-todos.md`
+- Weekly schedule: `<vault>/todos/weekly-schedule.md`
+- Rituals: `<vault>/todos/rituals.md`
+- Sync index: `<vault>/todos/notion-sync-index.json`
 </context>
 
 <process>
-1. Read the assistant instructions from `$HOME/ai-brain/assistants/todos.md`
+1. Read the assistant instructions from `<vault>/assistants/todos.md`
 2. Execute the **Daily Ritual** protocol (Steps 0 through 7) exactly as documented
 3. Step 0: Pre-flight health checks (Notion, Slack, sync index)
 4. Steps 1-4: Review, celebrate, learn, handle incomplete tasks (ALWAYS ask user)
