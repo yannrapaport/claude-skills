@@ -94,8 +94,9 @@ Skip this step entirely if `IS_AIB_SESSION=false`.
 When `IS_AIB_SESSION=true`:
 
 1. `cd "$HOME/ai-brain"` (main worktree).
-2. `git pull --rebase origin main` — récupère les éventuels merges d'autres sessions (Mac/Nexus).
+2. `git pull --rebase --autostash origin main` — récupère les éventuels merges d'autres sessions (Mac/Nexus). `--autostash` met de côté les modifs/untracked non liés (digests email cron, claudius/, etc.) avant le rebase et les restitue après. Sans ça, le rebase refuse de tourner sur working tree dirty.
    - If rebase **conflict** → STOP. Report to user with the conflicting files. Do not auto-resolve. The user must resolve manually before re-running wrap-up.
+   - If `--autostash` pop **conflict** after rebase → STOP, report. The session merge has not happened yet; the user resolves the pop conflict in main, then re-runs wrap-up.
 3. `git merge --no-ff "$SESSION_BRANCH" -m "merge: $SESSION_BRANCH"`.
    - If merge **conflict** → STOP. Surface the conflicting files. The session branch (and the worktree) is preserved so the user can resolve and re-run.
 4. `git push origin main`.
