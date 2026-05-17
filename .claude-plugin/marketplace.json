@@ -9,7 +9,6 @@
     { "name": "admin",        "source": "./plugins/admin" },
     { "name": "ai-brain",     "source": "./plugins/ai-brain" },
     { "name": "dotfiles",     "source": "./plugins/dotfiles" },
-    { "name": "linkedin",     "source": "./plugins/linkedin" },
     { "name": "maestro",      "source": "./plugins/maestro" },
     { "name": "nexus",        "source": "./plugins/nexus" },
     { "name": "pm-copilot",   "source": "./plugins/pm-copilot" },
