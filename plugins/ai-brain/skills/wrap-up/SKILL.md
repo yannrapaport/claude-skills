@@ -16,7 +16,7 @@ Close out a working session cleanly. Commit + push the current repo, propagate t
 <context>
 The skill runs from the **current repo's working directory**. It does not iterate over multiple repos (use `git-sync-all` for that).
 
-**Special case — `aib` worktree session :** if `pwd` is inside `~/.cache/ai-brain-worktrees/session-*`, the skill auto-detects an ai-brain isolated session (created by the `aib` wrapper). In this case it commits the WIP in the worktree, then merges the `session-*` branch back into `main` in `~/ai-brain`, pushes, and cleans up the worktree + branch. See Step 0 and Step 3.5.
+**Special case — worktree session :** if `pwd` is inside `~/.cache/*-worktrees/session-*`, the skill auto-detects an isolated session (created by `aib`, `ccwt`, or similar wrapper). In this case it commits the WIP in the worktree, then merges the `session-*` branch back into `main` in the main worktree, pushes, and cleans up the worktree + branch. See Step 0 and Step 3.5.
 
 Path mapping Mac ↔ Nexus is **identical**: `~/projects/<X>` on one machine maps to `~/projects/<X>` on the other.
 
@@ -27,19 +27,19 @@ Auto-commit is the default when there are uncommitted changes — but only when 
 
 <process>
 
-## Step 0 — Detect ai-brain worktree session
+## Step 0 — Detect worktree session
 
 1. Run `pwd`.
-2. If `pwd` matches `$HOME/.cache/ai-brain-worktrees/session-*` (glob, not regex):
-   - Set `IS_AIB_SESSION=true`.
+2. If `pwd` matches `$HOME/.cache/*-worktrees/session-*` (glob, not regex):
+   - Set `IS_WORKTREE_SESSION=true`.
    - Capture `WORKTREE_PATH="$(pwd)"` and `SESSION_BRANCH="$(basename "$WORKTREE_PATH")"`.
-3. Otherwise → `IS_AIB_SESSION=false`, normal wrap-up flow only.
+3. Otherwise → `IS_WORKTREE_SESSION=false`, normal wrap-up flow only.
 
-When `IS_AIB_SESSION=true`:
-- Step 1's `repo_path` will be the worktree (not `~/ai-brain`). This is expected.
+When `IS_WORKTREE_SESSION=true`:
+- Step 1's `repo_path` will be the worktree (not the main worktree). This is expected.
 - Step 3 commits the WIP **in the worktree** (on branch `session-XXX`).
-- Step 3.5 (after Step 3) merges `session-XXX` back into `main` in `~/ai-brain`, pushes, and cleans up.
-- Step 5 (checkpoint decision) still applies independently.
+- Step 3.5 (after Step 3) merges `session-XXX` back into `main` in the main worktree, pushes, and cleans up.
+- Step 5 (checkpoint decision) still applies independently. Note: its signals (`journal/`, `scratchpad/in-progress.md`) are ai-brain-specific — for non-ai-brain worktrees, expect "not needed" silently.
 
 ## Step 1 — Detect machine + repo
 
@@ -87,13 +87,18 @@ Skip this step entirely if Step 2 saw a clean tree. Otherwise apply the gate:
 6. If `upstream` exists, `git push`. If the branch has no upstream, ask once whether to set it (`git push -u origin <branch>`) or skip push.
 7. If push fails because the branch has diverged: `git pull --rebase` then retry push **only if** the rebase had no conflicts. On conflict, stop and report.
 
-## Step 3.5 — Merge worktree session-* into main (if IS_AIB_SESSION)
+## Step 3.5 — Merge worktree session-* into main (if IS_WORKTREE_SESSION)
 
-Skip this step entirely if `IS_AIB_SESSION=false`.
+Skip this step entirely if `IS_WORKTREE_SESSION=false`.
 
-When `IS_AIB_SESSION=true`:
+When `IS_WORKTREE_SESSION=true`:
 
-1. `cd "$HOME/ai-brain"` (main worktree).
+1. Resolve the main worktree path dynamically (works for any repo, not just ai-brain) and cd there:
+   ```bash
+   MAIN_WORKTREE="$(git worktree list --porcelain | awk '/^worktree / {print $2; exit}')"
+   cd "$MAIN_WORKTREE"
+   ```
+   The first `worktree` entry in `git worktree list --porcelain` is always the main worktree.
 2. `git pull --rebase --autostash origin main` — récupère les éventuels merges d'autres sessions (Mac/Nexus). `--autostash` met de côté les modifs/untracked non liés (digests email cron, claudius/, etc.) avant le rebase et les restitue après. Sans ça, le rebase refuse de tourner sur working tree dirty.
    - If rebase **conflict** → STOP. Report to user with the conflicting files. Do not auto-resolve. The user must resolve manually before re-running wrap-up.
    - If `--autostash` pop **conflict** after rebase → STOP, report. The session merge has not happened yet; the user resolves the pop conflict in main, then re-runs wrap-up.
@@ -152,7 +157,7 @@ Output a compact report:
 
   Commit:  <hash> "<subject>"  | none (clean tree)
   Push:    pushed to origin/<branch>  | skipped (<reason>)
-  Worktree: <SESSION_BRANCH> merged into main, removed, branch deleted  | (n/a — not an aib session)
+  Worktree: <SESSION_BRANCH> merged into main, removed, branch deleted  | (n/a — not a worktree session)
   Other machine: pull needed on <mac|nexus> at <path>  | up-to-date (nothing pushed)
 
   Checkpoint: proposed | not needed
