@@ -81,7 +81,15 @@ bw-files < ~/projects/admin/dotfiles/secrets/bw.{slug}.files
 
 If `bw-inject` or `bw-files` fails for a slug: report the error, leave existing files untouched, continue with the next slug.
 
-5. **Summary table:**
+5. **Propagate to Nexus** (Nexus can't self-refresh — its Bitwarden vault is locked and `bw-inject` isn't on its PATH):
+
+```bash
+~/projects/admin/dotfiles/bin/secrets-sync-nexus
+```
+
+Pushes the freshly-resolved `~/.secrets/*` files **that already exist on Nexus** (refresh-in-place: never adds Mac-only files, never removes Nexus-only ones like `env.sporteasy`). Backs up Nexus's `env.*` first; skips gracefully if Nexus is unreachable. This keeps Nexus in sync so a Mac refresh covers both machines.
+
+6. **Summary table:**
 
 | Slug | env | files |
 |------|-----|-------|
@@ -89,6 +97,8 @@ If `bw-inject` or `bw-files` fails for a slug: report the error, leave existing 
 | rakam | ✓ | — |
 | tpg | ✓ | — |
 | lp | ✓ | ✓ (3 files) |
+
+Note the Nexus propagation result (N files pushed / unreachable).
 
 ## Notes
 
