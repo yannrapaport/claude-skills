@@ -17,11 +17,7 @@ Run the daily ritual (Steps 0 through 7) from the todo-manager assistant instruc
 </objective>
 
 <context>
-**Vault root resolution (do this FIRST, mentally):**
-- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (`aib` worktree session).
-- Otherwise, the vault root is `$HOME/ai-brain`.
-
-`<vault>` below refers to whichever root applies.
+**Vault root:** `$HOME/ai-brain` (referred to as `<vault>` below).
 
 Assistant instructions: `<vault>/assistants/todos.md`
 

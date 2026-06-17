@@ -15,11 +15,7 @@ Capture the current work session so it can be resumed later — on this machine 
 </objective>
 
 <context>
-**Vault root resolution (do this FIRST, mentally):**
-- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (you are inside an `aib` worktree session — write into the worktree so wrap-up can merge cleanly).
-- Otherwise, the vault root is `$HOME/ai-brain`.
-
-Notation: `<vault>` below refers to whichever root applies.
+**Vault root:** `$HOME/ai-brain` (referred to as `<vault>` below).
 
 Checkpoint storage: `<vault>/checkpoints/<project>/YYYY-MM-DD-HHmm-<slug>.md`
 The `checkpoints/` folder is git-tracked in the Obsidian vault, so a commit + push at the end of this skill makes the checkpoint available on Nexus (and any other machine with the vault).
@@ -141,7 +137,7 @@ Be conservative. If in doubt, skip and mention it in the final summary instead.
 
 ## Step 7 — Commit + push the vault
 
-Run from `<vault>` (which may be `$HOME/ai-brain` or the `aib` session worktree):
+Run from `<vault>`:
 
 ```bash
 cd <vault>
@@ -151,8 +147,6 @@ git commit -m "checkpoint: <project> — <slug>
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
 git push
 ```
-
-If `<vault>` is a worktree, the commit lands on the `session-*` branch and will be merged into `main` at the next `/ai-brain:wrap-up`. The push to origin may fail because the branch has no upstream — that's OK, the merge at wrap-up time will propagate it.
 
 Do NOT add other paths (`.obsidian/workspace.json`, etc.) — only the checkpoint file.
 

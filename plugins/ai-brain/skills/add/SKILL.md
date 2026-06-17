@@ -11,11 +11,7 @@ Append a task to the AI Brain hub (`active-todos.md`). No routing, no disambigua
 </objective>
 
 <context>
-**Vault root resolution (do this FIRST, mentally):**
-- If current cwd matches `$HOME/.cache/ai-brain-worktrees/session-*`, the vault root is the cwd (you are inside an `aib` worktree session).
-- Otherwise, the vault root is `$HOME/ai-brain`.
-
-Notation: `<vault>` below refers to whichever root applies.
+**Vault root:** `$HOME/ai-brain` (referred to as `<vault>` below).
 
 Hub file: `<vault>/todos/active-todos.md`
 Format reference: `<vault>/assistants/todos.md`

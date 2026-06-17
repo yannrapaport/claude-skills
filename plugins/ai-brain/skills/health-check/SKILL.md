@@ -14,11 +14,7 @@ Run a full health check across the AI Brain system. Produce a structured PASS/WA
 </objective>
 
 <context>
-**Vault root resolution:**
-- If cwd matches `$HOME/.cache/ai-brain-worktrees/session-*` → vault root = cwd (`aib` session).
-- Otherwise → vault root = `$HOME/ai-brain`.
-
-`<vault>` below refers to whichever root applies.
+**Vault root:** `$HOME/ai-brain` (referred to as `<vault>` below).
 
 All vault paths are relative to `<vault>/` (symlink to the Obsidian vault when on main). The vault is flat: top-level dirs are `assistants/`, `todos/`, `context/`, `knowledge/`, `projects/`, `scratchpad/`, `tools/`, `infra/`, `templates/`, `archive/`, `checkpoints/`, `claudius/`.
 
