@@ -1,0 +1,8 @@
+{
+  "name": "yannizer",
+  "version": "1.0.0",
+  "description": "Rewrite AI-drafted text to sound like a real person — a voice-izer that learns your voice through correction",
+  "author": {
+    "name": "Yann Rapaport"
+  }
+}

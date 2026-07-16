@@ -1,0 +1,14 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "Yann Rapaport",
+    "url": "https://theproductguy.fr"
+  },
+  "metadata": {
+    "description": "The Product Guy — public Claude Code skills"
+  },
+  "plugins": [
+    { "name": "yannizer",   "source": "./plugins/yannizer" },
+    { "name": "mastermind", "source": "./plugins/mastermind" }
+  ]
+}
