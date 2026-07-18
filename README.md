@@ -29,12 +29,21 @@ yannized   → Je reviens vers vous sur notre échange.
 
 Launches parallel expert agents (PM, Architect, Dev, …) to analyze a plan, codebase, or document from multiple perspectives, then synthesizes their findings. Useful for a second opinion before committing to an important decision.
 
+### `model-fit-check` — right model for the task
+
+At the start of a task, it classifies the work (light / standard / heavy → Haiku / Sonnet / Opus) and, if the **active** model doesn't match, flags it in three lines with a switch action. Catches both overspend (Opus on a bulk rename) and underpowering (Haiku on an architecture decision).
+
+The trick that makes it work on a weak model too: it classifies by **surface signals** (task shape, keywords), not by self-assessed capability — so even Haiku spots when it's out of its depth. It never auto-switches (Claude Code can't mid-session); it alerts and hands you the `/model` action.
+
+> Written in French, calibrated on my model-tiering conventions as an example. The tier grid is explicit at the top of the skill — update the model IDs as the lineup evolves.
+
 ## Install
 
 ```
 /plugin marketplace add yannrapaport/claude-skills
 /plugin install yannizer@claude-skills
 /plugin install mastermind@claude-skills
+/plugin install model-fit-check@claude-skills
 ```
 
 ## License

@@ -1,0 +1,8 @@
+{
+  "name": "model-fit-check",
+  "version": "1.0.0",
+  "description": "Check the active Claude model against a task's complexity and flag a mismatch — overpowered (waste) or underpowered (quality risk)",
+  "author": {
+    "name": "Yann Rapaport"
+  }
+}

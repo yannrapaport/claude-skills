@@ -8,7 +8,8 @@
     "description": "The Product Guy — public Claude Code skills"
   },
   "plugins": [
-    { "name": "yannizer",   "source": "./plugins/yannizer" },
-    { "name": "mastermind", "source": "./plugins/mastermind" }
+    { "name": "yannizer",       "source": "./plugins/yannizer" },
+    { "name": "mastermind",     "source": "./plugins/mastermind" },
+    { "name": "model-fit-check", "source": "./plugins/model-fit-check" }
   ]
 }
