@@ -13,13 +13,13 @@ Compare le **modèle actuellement actif** au tier que la tâche demande, et aler
 |------|---------------|------|
 | **Léger** | Haiku 4.5 | Bulk mécanique, no judgment : renommage, extraction, listing, reformatage, boilerplate, haut volume, pattern-matching |
 | **Standard** | Sonnet 5 | Recherche cadrée, exploration code, synthèse in-scope, coding standard multi-étapes. **C'est le défaut.** |
-| **Lourd** | Opus 4.8 | Planning, tradeoffs réels, architecture, décisions structurantes, debug complexe, nuance/jugement |
+| **Lourd** | Opus 5.5 | Planning, tradeoffs réels, architecture, décisions structurantes, debug complexe, nuance/jugement |
 
-*Fable 5 = pointe extrême (raisonnement le plus dur) — à ne suggérer que si Opus est visiblement en peine.*
+*Fable 5.1 = pointe extrême (raisonnement le plus dur) — à ne suggérer que si Opus 5.5 est visiblement en peine.*
 
 ## Le check (3 gestes)
 
-1. **Ton modèle actif** — tu le connais, c'est toi (Opus / Sonnet / Haiku).
+1. **Ton modèle actif** — tu le connais, c'est toi (Fable / Opus / Sonnet / Haiku).
 2. **Classe la tâche** par signaux de surface, pas par auto-évaluation de tes capacités :
    - mots « architect / design / plan / stratégie / tradeoff / refactor entier / comprendre pourquoi » → **Lourd**
    - mots « renommer / extraire / lister / reformater / bulk / répétitif / 40 fichiers » → **Léger**
@@ -53,4 +53,4 @@ Puis **attends** avant d'attaquer la tâche (sur-dimensionné : tu peux continue
 
 ## Adapter la grille
 
-Les IDs de modèles (Haiku 4.5, Sonnet 5, Opus 4.8, Fable 5) et le mapping tier→modèle sont volontairement explicites : mets-les à jour quand la gamme évolue. La logique — classer par signaux de surface, comparer au modèle actif, alerter en 3 lignes — reste stable.
+Les IDs de modèles (Haiku 4.5, Sonnet 5, Opus 5.5, Fable 5.1) et le mapping tier→modèle sont volontairement explicites : mets-les à jour quand la gamme évolue. La logique — classer par signaux de surface, comparer au modèle actif, alerter en 3 lignes — reste stable.
